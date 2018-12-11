@@ -1,0 +1,77 @@
+<% include ./partials/header %>
+<br>
+<div class="container">
+    <div class="container">
+        <header class="jumbotron">
+            <div class="container">
+                <center><h1 class="headerwhite">Welcome To TIJN <i class="fas fa-hand-holding-usd"></i></h1></center>
+                <center><h3>The Best Dummy Money Transfer Web Application in the World!!</h3></center>
+                <hr>
+                <center><h4><%= results[0].FNAME %> <%= results[0].LNAME %></h4></center>
+                <center><div class = "user-actions">
+                    <a class="btn btn-success btn-large" href="/home/<%= user %>/sendMoney">Make Transaction</a>
+                    <a style="display: inline;" class="btn btn-success btn-large" href="/home/<%= user %>/reqMoney">Request Transaction</a>
+                    <a style="display: inline;" class="btn btn-success btn-large" href="/home/<%= user %>/history">Statements</a>   
+                </div></center>
+            </div>
+        </header>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <center>
+                    <h3 class="card-title">USER DETAILS</h3>
+                    <h4 class="card-subtitle mb-2 text-muted">USER SSN:</h4>
+                    <h5 class="card-text"><%= results[0].SSN %></h5>
+                    <p>ACCOUNT DETAILS</p>
+                    <h5>EMAIL: <%= results[0].EMAIL %></h5>
+                    <h5>NAME: <%= results[0].FNAME %> <%= results[0].LNAME %></h5>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <center>
+                    <h3 class="card-title">BANK DETAILS</h3>
+                    <h4 class="card-subtitle mb-2 text-muted">BALANCE:</h4>
+                    <h5 class="card-text"><%= results[0].BALANCE %></h5>
+                    <p>BANK DETAILS</p>
+                    <h5>ACCOUNT NUMBER: <%= results[0].ACCOUNT_NO %></h5>
+                    <h5>BANK ID: <%= results[0].BANK_ID %></h5>
+                    <h5>BANK NAME: <%= results[0].BNAME %></h5>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class = "transaction-section">
+            <br><br><hr>
+            <center><h2 id="reqNote">REQUEST NOTIFICATIONS</h2></center>
+            <% if(!Req_Note.length){ %>
+                <br>
+                <h4><%= message %></h4>
+            <% }else{ %>
+                <table class="table table-bordered table-dark table-striped" style= "border: 2px; margin: 25px auto">
+                    <thead class="thead-dark"><tr>
+                        <th>EMAIL</th>
+                        <th>DATE</th>
+                        <th>Amount</th>
+                        <th>Direct Transfer</th>
+                    </tr></thead>
+                    <% for(i = 0; i<Req_Note.length; i++){ %>
+                    <tr>     
+                        <td><%= Req_Note[i].EMAIL %></td>
+                        <td><%= Req_Note[i].DATE %></td>
+                        <td><%= Req_Note[i].R_AMT %></td>
+                        <td><form action="/home/<%= user %>/sendMoney/<%= Req_Note[i].R_SSN %>/<%= Req_Note[i].R_AMT %>" method="post"><button class="btn btn-warning mb-2">Send</button></form></td>
+                    </tr>
+                    <% } %>
+                </table>
+            <% } %>
+        </div>
+    </div>
+</div>
+<% include ./partials/footer %>

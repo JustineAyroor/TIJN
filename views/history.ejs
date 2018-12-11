@@ -1,0 +1,64 @@
+<% include ./partials/header %>
+<br><br>
+<div class="container">
+    <div class = "specific-trsnsaction-section" >
+        <form class="form-inline" action="/home/<%= user %>/history/statements" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="daterange1"><h4>Date1:</h4></label>
+                <input type="date" class="form-control" name="daterange1" placeholder="YYYY-MM-DD">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="daterange2"><h4>Date2:</h4></label>
+                <input type="date" class="form-control" name="daterange2" placeholder="YYYY-MM-DD">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+        <br>
+        <center><a style ="display: inline;" href="/home/<%= user %>/history"><button type="submit" class="btn btn-warning mb-2">View All</button></a></center>>
+    </div>
+    <div class = "transaction-section">
+        <hr>
+        <center><h1>SEND TRANSACTION HISTORY</h1></center>
+        <% if(!sendtransDets.length){ %>
+            <center><h4>No Transactions made</h4></center>>
+        <% }else{ %>
+            <table class="table table-bordered table-dark table-striped" style= "border: 2px; margin: 25px auto">
+                <thead class="thead-dark"><tr>
+                    <th>EMAIL</th>
+                    <th>DATE</th>
+                    <th>Amount</th>
+                </tr></thead>
+                <% for(i = 0; i<sendtransDets.length; i++){ %>
+                <tr>     
+                    <td><%= sendtransDets[i].R_EMAIL %></td>
+                    <td><%= sendtransDets[i].DATE %></td>
+                    <td><%= sendtransDets[i].S_AMT %></td>
+                </tr>
+                <% } %>
+            </table>
+        <% } %>
+    </div>
+    <div class = "transaction-section">
+        <br><br><hr>
+        <center><h1>RECEIVED TRANSACTION HISTORY</h1></center>
+        <% if(!rectransDets.length){ %>
+            <center><h4>No Transactions Received</h4></center>>
+        <% }else{ %>
+            <table class="table table-bordered table-dark table-striped" style= "border: 2px; margin: 25px auto">
+                <thead class="thead-dark"><tr>
+                    <th>EMAIL</th>
+                    <th>DATE</th>
+                    <th>Amount</th>
+                </tr></thead>
+                <% for(i = 0; i<rectransDets.length; i++){ %>
+                <tr>     
+                    <td><%= rectransDets[i].EMAIL %></td>
+                    <td><%= rectransDets[i].DATE %></td>
+                    <td><%= rectransDets[i].S_AMT %></td>
+                </tr>
+                <% } %>
+            </table>
+        <% } %>
+    </div>
+</div>
+<% include ./partials/footer %>

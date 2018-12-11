@@ -1,0 +1,60 @@
+<% include ./partials/header %>
+<br>
+<div class="row justify-content-md-center">
+    <div class="col col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <center>
+                <h3 class="card-title">USER DETAILS</h3>
+                <h4 class="card-subtitle mb-2 text-muted">USER SSN:</h4>
+                <h5" class="card-text"><%= results[0].SSN %></h5>
+                <p>ACCOUNT DETAILS</p>
+                <h5>EMAIL: <%= results[0].EMAIL %></h5>
+                <h5>NAME: <%= results[0].FNAME %> <%= results[0].LNAME %></h5>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <center>
+                <h3 class="card-title">BANK DETAILS</h3>
+                <h4 class="card-subtitle mb-2 text-muted">BALANCE:</h4>
+                <h5 class="card-text"><%= results[0].BALANCE %></h5>
+                <p>BANK DETAILS</p>
+                <h5>ACCOUNT NUMBER: <%= results[0].ACCOUNT_NO %></h5>
+                <h5>BANK ID: <%= results[0].BANK_ID %></h5>
+                <h5>BANK NAME: <%= results[0].BNAME %></h5>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<br><hr>
+<div class="container">
+    <div class="row">
+        <div style="width: 30%; margin: 25px auto;">
+            <h1 style="text-align: center">Request Trasaction</h1>
+            <form action="/home/<%= user %>/reqMoney" method="post">
+                <div class="form-group">
+                    <label for="rssn">SSN:</label>
+                    <input class="form-control" type="text" name="rssn" value="<%= results[0].SSN %>" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="r_email">Email:</label>
+                    <input class="form-control" type="email" name="s_email" placeholder="receiver email" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Amount:</label>
+                    <input class="form-control" type="number" name="Amount" placeholder="Amount" required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-warning btn-lg btn-block">Send</button>
+                </div>
+            </form>
+            <a class="btn btn-outline-warning btn-lg btn-block" href="/">Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ./partials/footer %>

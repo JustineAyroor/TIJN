@@ -1,0 +1,99 @@
+<% include ./partials/header %>
+<br>
+<div class="container">
+    <div class="jumbotron">
+        <center><h1 class="display-4">PRIMARY BANK DETAILS</h1></center>
+        <center><h3>BALANCE: <%= results[0].BALANCE %></h3></center>
+        <hr class="my-4">
+        <center><h5>BANK NAME: <%= results[0].BNAME%></h5></center>
+        <center><h5>BANK ID: <%= results[0].BANK_ID %></h5></center>
+        <center><h5>BANK ACCOUNT NO: <%= results[0].ACCOUNT_NO %></h5></center>
+        <center><button class="btn btn-xs btn-success" onclick="openBalForm()">Add Balance</button></center>
+    </div>
+</div>
+<hr>
+<center><h1 class="display-4">SECONDARY BANK DETAILS</h1></center>
+<hr>
+<% for(i=1;i<results.length;i++){ %>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <center><h4>BANK NAME: <%= results[i].BNAME%></h4></center>
+            </div>
+            <div class="card-body">
+                <center><h5 class="card-title">BALANCE: <%= results[i].BALANCE %></h5></center>
+                <center><h5>BANK ID: <%= results[i].BANK_ID %></h5></center>
+                <center><h5>BANK ACCOUNT NO: <%= results[i].ACCOUNT_NO %></h5></center>
+                <hr>
+                <center>
+                <form class="delete-form" style = "display:inline;" action="/home/<%= user %>/deleteBank/<%= results[i].BANK_ID %>/<%= results[i].ACCOUNT_NO %>" method="POST">
+                    <button class="btn btn-xs btn-danger">Delete</button>
+                </form>
+                <form class="makePrimary-form" style = "display:inline;" action="/home/<%= user %>/makePrimaryBank/<%= results[i].BANK_ID %>/<%= results[i].ACCOUNT_NO %>" method="POST">
+                    <button class="btn btn-xs btn-warning">Make Primary</button>
+                </form>
+                </center>
+            </div>
+        </div>
+    </div>
+    <br><hr>
+<% } %>
+<br><br><hr>
+<button class = "open-button" onclick="openForm()"> Add Bank </button>
+
+<div class="form-popup" id="myAddBalForm">
+    <form action="/home/<%= user %>/addBalance" method="post" class="form-container">
+        <div class="form-group">
+            <label for="Balance">Amount:</label>
+            <input class="form-control" type="number" name="Balance" placeholder="Amount">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-outline-success btn-lg btn-block">Add Balance</button>
+        </div>
+        <button type="button" class="btn cancel" onclick="closeBalForm()">Close</button>
+    </form>
+</div>
+
+<div class="form-popup" id="myForm">
+    <form action="/home/<%= user %>/edit/UserBanks" method="post" class="form-container">
+        <h1>BANK DETAILS</h1>      
+        <div class="form-group">
+            <label for="BankName">Bank Name:</label>
+            <select class="form-group" id="Bname" name="BankName">
+                <% for(var i = 0; i<banklist.length; i++){ %>
+                    <option value = <%= banklist[i].BANK_ID %> > <%= banklist[i].BNAME %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="AccNo">Account Number:</label>
+            <input class="form-control" type="number" name="AccNo" placeholder="AccountNo">
+        </div>
+        <div class="form-group">
+            <label for="Balance">Amount:</label>
+            <input class="form-control" type="number" name="Balance" placeholder="Amount">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-outline-success btn-lg btn-block">Add Bank!</button>
+        </div>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+</div>
+<script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+        function openBalForm() {
+            document.getElementById("myAddBalForm").style.display = "block";
+        }
+
+        function closeBalForm() {
+            document.getElementById("myAddBalForm").style.display = "none";
+        }
+</script>   
+<% include ./partials/footer %>

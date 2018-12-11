@@ -1,0 +1,51 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="row">
+        <div style="width: 50%; margin: 25px auto;">
+            <h1 style="text-align: center">Sign Up</h1>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="SSN">SSN:</label>
+                    <input class="form-control" type="number" name="SSN" placeholder="SSN" required>
+                </div>
+                <div class="form-group">
+                    <label for="FName">First Name:</label>
+                    <input class="form-control" type="text" name="FName" placeholder="first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="LName">Last Name:</label>
+                    <input class="form-control" type="text" name="LName" placeholder="last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Email ID:</label>
+                    <input class="form-control" type="email" name="Email" placeholder="EmailID" required>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Password:</label>
+                    <input class="form-control" type="password" name="Password" placeholder="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="BankName">Bank Name:</label>
+                    <select class="form-group" id="Bname" name="BankName">
+                        <% for(var i = 0; i<results.length; i++){ %>
+                            <option value = <%= results[i].BANK_ID %> > <%= results[i].BNAME %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="AccNo">Account Number:</label>
+                    <input class="form-control" type="number" name="AccNo" placeholder="AccountNo">
+                </div>
+                <div class="form-group">
+                    <label for="Balance">Amount:</label>
+                    <input class="form-control" type="number" name="Balance" placeholder="Amount">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-outline-warning btn-lg btn-block">Sign Up!</button>
+                </div>
+            </form>
+            <a class="btn btn-outline-warning btn-lg btn-block" href="/">Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ./partials/footer %>

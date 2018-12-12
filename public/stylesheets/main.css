@@ -111,3 +111,17 @@ label{
 .card,form{
     font-family: 'Gloria Hallelujah';
 }
+
+.rounded{
+    width: 80%;
+    height: 80%;
+}
+
+#land_img{
+    width:20%;
+    height: 20%
+}
+
+#patch{
+    background-color: #DBBA16;
+}

@@ -129,6 +129,7 @@ app.get("/home/:email/edit/UserProfile", isLoggedIn, function(req,res){
 });
 
 app.post("/home/:email/edit/UserProfile", isLoggedIn, function(req,res){
+    oldemail = req.params.email;
     queryString = "UPDATE USER_ACCOUNT SET EMAIL='"+ req.body.email +"',PASSWORD='"+ req.body.password +"' WHERE EMAIL='"+ req.app.locals.user +"'";
     connection.query(queryString, function(err){
         if(err){
@@ -136,8 +137,15 @@ app.post("/home/:email/edit/UserProfile", isLoggedIn, function(req,res){
             res.redirect('/home/'+ req.app.locals.user);
         } else{
             req.app.locals.user = req.body.email
-            alert("UPDATE SUCCESSFULL ON USER_ACCOUNT");
-            res.redirect('/home/'+ req.app.locals.user);
+            queryString = "UPDATE REQ_TRAN SET S_EMAIL='"+req.body.email+"'WHERE S_EMAIL='"+oldemail+"'";
+            connection.query(queryString, function(err){
+                if(err){
+                    alert("UPDATE FAILED ON REQ_TRAN");
+                } else{
+                    alert("UPDATE SUCCESSFULL ON USER_ACCOUNT");
+                    res.redirect('/home/'+ req.app.locals.user);
+                }
+            });
         }
     });
 });

@@ -16,8 +16,9 @@ app.locals.error = null;
 // SQL connection config
 var connection = mysql.createConnection({
   host     : 'localhost',
+  port     : 3306,
   user     : 'root',
-  password : 'justy2496',
+  password : '96joeil24',
   database : 'TIJN'
 });
 
@@ -52,10 +53,12 @@ app.post("/register", function(req,res){
             alert("ERROR OCCURRED WHILE INSERT");
             res.redirect('/register');
         }else{
+            // console.log(req.body.BankName);
             var BankAccount = {USSN: req.body.SSN, BANK_ID: req.body.BankName, ACCOUNT_NO: req.body.AccNo, BALANCE: req.body.Balance, IS_PRIMARY: 1};
             queryString = "INSERT INTO BANK_ACCOUNT SET ?";
             connection.query(queryString, BankAccount, function(error){
                 if(error){
+                    console.log(error)
                     alert("ERROR OCCURRED WHILE INSERT");
                     res.redirect('/register');
                 }else{
@@ -177,11 +180,13 @@ app.post("/home/:email/edit/UserBanks", isLoggedIn, function(req,res){
             alert("DATABASE ERROR");
             res.redirect('/home/'+ req.app.locals.user);
         } else{
+            // console.log(req.body.BankName);
             var BankAccount = {USSN: userssn[0].SSN, BANK_ID: req.body.BankName, ACCOUNT_NO: req.body.AccNo, BALANCE: req.body.Balance, IS_PRIMARY: 0};
             queryString = "INSERT INTO BANK_ACCOUNT SET ?";
             connection.query(queryString, BankAccount, function(err){
                 if(err){
                     alert("FAILED TO INSERT ON BANK_ACCOUNT");
+                    console.log(err)
                     res.redirect('/home/'+ req.app.locals.user);
                 } else {
                     alert("SUCCESSFULL INSERT ON BANK_ACCOUNT");
